@@ -347,7 +347,7 @@ body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],bo
   <div class="box">
     <button class="x" id="lbx" aria-label="Close video">×</button>
     <div class="vid" id="lbv"></div>
-    <div class="info"><div><h3 id="lbt"></h3><p id="lbp"></p></div><a class="pill" id="lbl" target="_blank" rel="noopener">Watch full video</a></div>
+    <div class="info"><h3 id="lbt"></h3></div>
   </div>
 </div>
 
@@ -437,7 +437,7 @@ stage.addEventListener("pointermove",e=>{mx=e.clientX;my=e.clientY;inside=true})
 addEventListener("resize",()=>{dims();layout()});requestAnimationFrame(tick);
 /* popup */
 let from=null;
-function open(i,btn){const p=P[i];from=btn;$("lbt").textContent=p.t;$("lbp").textContent=p.d+" – "+p.x;$("lbl").href=p.link;
+function open(i,btn){const p=P[i];from=btn;$("lbt").textContent=p.t;
  const v=$("lbv");v.style.setProperty("--g","linear-gradient(135deg,"+p.g+")");
  lb.querySelector(".box").classList.toggle("tall",!p.wide);
  v.innerHTML=p.preview?'<video src="'+p.preview+'"'+(p.poster?' poster="'+p.poster+'"':'')+' controls autoplay playsinline preload="metadata"></video>':"<div><b style='font-size:20px'>"+p.t+"</b><br>Preview clip goes here.<br><small>Add an MP4 in the preview field.</small></div>";
