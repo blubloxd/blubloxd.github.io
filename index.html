@@ -252,7 +252,7 @@ body.loading{overflow:hidden}
 .about .big{font-size:clamp(18px,2.2vw,24px);line-height:1.4;color:var(--ink)}
 .facts{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:26px}
 .facts div{border-top:1px solid var(--muted);padding-top:12px}.facts b{display:block;font:var(--hw) 34px/1 var(--hf);letter-spacing:-.03em;margin-bottom:4px}.facts span{font:400 12px/1.3 var(--mf);color:var(--muted)}
-.about-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin:56px 0 36px}
+.about-cols{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,2fr);gap:32px;margin:56px 0 36px}
 .about-cols h3{font:400 12px/1 var(--mf);letter-spacing:.04em;color:var(--muted);margin:0 0 14px}
 .about-cols ul{list-style:none;margin:0;padding:0;color:var(--ink)}.about-cols li{padding:10px 0;border-top:1px solid var(--line)}
 .contact{padding:64px clamp(18px,4vw,48px) 120px;background:color-mix(in srgb,var(--card) 72%,transparent)}
@@ -287,6 +287,39 @@ h1,h2,h3,.ld-name,.name,.side em,.facts b,.ribbon-t span,.info h3{font-variation
 body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],body[data-theme=sky] [data-t=sky],body[data-theme=noir] [data-t=noir]{outline:2px solid var(--acc)}
 @media(max-width:900px){.tc{display:none}}
 @media(prefers-reduced-motion:reduce){.rail-cap::before{animation:none}}
+/* Selected work: orbit */
+.orb-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:14px 28px;margin:6px 0 10px}
+.orb-tabs{display:flex;flex-wrap:wrap;gap:6px}
+.orb-tabs button{font:500 13px/1 var(--bf);color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:3px;padding:10px 14px;cursor:pointer;display:flex;gap:8px;align-items:center;transition:color .2s,border-color .2s,background .2s}
+.orb-tabs button i{font:400 11px/1 var(--mf);font-style:normal;opacity:.7}
+.orb-tabs button:hover{color:var(--ink);border-color:var(--muted)}
+.orb-tabs button[aria-selected=true]{color:var(--on);background:var(--acc);border-color:var(--acc)}
+.orb-desc{margin:0;color:var(--muted);font-size:15px}
+.orb-stage{position:relative;margin:0 calc(-1*clamp(18px,4vw,48px));overflow:hidden;perspective-origin:50% var(--cy,50%);cursor:grab;touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.orb-stage:active{cursor:grabbing}
+.orb-tilt{position:absolute;inset:0;transform-style:preserve-3d;transform-origin:50% var(--cy,50%);transform:rotateZ(-7deg) rotateX(-9deg)}
+.orb-ring{position:absolute;left:50%;top:var(--cy,50%);width:0;height:0;transform-style:preserve-3d}
+.orb-stage.swap{animation:orb-in .7s cubic-bezier(.2,.7,.2,1)}
+@keyframes orb-in{from{opacity:0}}
+.orb-c{position:absolute;left:0;top:0;width:var(--w);height:var(--h);padding:0;border:0;background:none;cursor:pointer;transform-style:preserve-3d;color:#fff;text-align:left}
+.orb-f,.orb-b{position:absolute;inset:0;border-radius:8px;overflow:hidden;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--card);box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.orb-b{transform:rotateY(180deg)}
+.orb-c img{width:100%;height:100%;object-fit:cover;object-position:50% 28%;display:block;pointer-events:none}
+.orb-b img{filter:brightness(.5) saturate(.8)}
+.orb-f::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(to top,rgba(0,0,0,.7),transparent 45%);pointer-events:none}
+.orb-f .vt{opacity:0;transition:opacity .3s}
+.orb-c:hover .orb-f .vt,.orb-c:focus-visible .orb-f .vt{opacity:1}
+.orb-f img{filter:brightness(.78);transition:filter .4s}
+.orb-c.front .orb-f img,.orb-c:hover .orb-f img{filter:none}
+.orb-c:focus-visible{outline:none}.orb-c:focus-visible .orb-f{box-shadow:0 0 0 2px var(--acc)}
+.orb-now{display:flex;align-items:center;justify-content:center;gap:18px;margin-top:6px}
+.orb-cap{display:grid;justify-items:center;gap:6px;min-width:min(340px,60vw);text-align:center}
+.orb-cap span{font:400 11px/1 var(--mf);letter-spacing:.04em;color:var(--muted)}
+.orb-cap b{font:var(--hw) clamp(20px,2.4vw,28px)/1.1 var(--hf);letter-spacing:-.01em}
+.orb-arr{width:44px;height:44px;border-radius:3px;border:1px solid var(--line);background:transparent;color:var(--ink);font-size:18px;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.orb-arr:hover{background:var(--acc);border-color:var(--acc);color:var(--on)}
+@media(max-width:700px){.orb-tilt{transform:rotateZ(-5deg) rotateX(-7deg)}.orb-desc{font-size:14px}.orb-tabs button{padding:9px 11px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.orb-stage.swap{animation:none}}
 </style>
 </head>
 <body data-theme="noir">
@@ -317,7 +350,6 @@ body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],bo
   <div class="about-cols">
     <div><h3>Tools</h3><ul><li>CapCut Pro</li><li>Premiere Pro</li><li>After Effects</li><li>Photoshop</li><li>Illustrator</li><li>Canva</li><li>Claude AI, Gemini Flow</li></ul></div>
     <div><h3>Experience</h3><ul><li>Aug 2025 – Now · SuamiSihat Holdings, Creative Executive (Video)</li><li>Dec 2024 – Jul 2025 · Pusat Tuisyen Aster, Video Editor / Videographer</li><li>Mar 2023 · NOVOID, Freelance Graphic Designer</li><li>Jun 2022 – Jan 2023 · Maktab Tentera Diraja, Freelance Assistant Video Editor</li><li>Nov 2021 · Petronas Gas Berhad, Freelance Videographer / Editor</li></ul></div>
-    <div><h3>Clients</h3><ul><li>SuamiSihat Holdings</li><li>Pusat Tuisyen Aster</li><li>Petronas Gas Berhad (ICQCC 2021)</li><li>Maktab Tentera Diraja</li><li>NOVOID</li></ul></div>
   </div>
   <a class="pill" href="#contact">Let’s work together</a>
 </div></section>
@@ -385,12 +417,41 @@ const CATS=[["01","Ads","Ads cut to hold attention and drive action.","mega"],["
 const ICO={mega:'<path d="M3 11v2a1 1 0 0 0 1 1h2l5 4V6L6 10H4a1 1 0 0 0-1 1z"/><path d="M15 9a4 4 0 0 1 0 6"/><path d="M18 6.5a8 8 0 0 1 0 11"/>',heart:'<path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/>',case:'<rect x="3" y="7" width="18" height="12" rx="2"/><path d="M9 7V5h6v2M3 12h18"/>'};
 const vc=(p,i,c)=>`<button class="vcard ${c}" data-i="${i}" style="--g:url(${p.vp||p.poster}) center/cover no-repeat" aria-label="Play ${p.t}"><span class="vt"><b>${p.t}</b><i>${p.d.split(" · ")[1]}</i></span></button>`;
 const sn=c=>`<div class="vcard ${c} soon"><span>Coming soon</span></div>`;
-$("cats").innerHTML=CATS.map((c,n)=>{
- const it=P.map((p,i)=>[p,i]).filter(([p])=>p.cat===c[1]&&!p.soon);let fi=it.findIndex(([p])=>p.top);if(fi<0)fi=0;
- const feat=it[fi],rest=it.filter((_,k)=>k!==fi),slug=c[1].toLowerCase().replace(/\s+/g,"-");
- const set='<div class="wk-set">'+[...rest.map(([p,i])=>vc(p,i,"wk-c")),...Array(Math.max(0,5-rest.length)).fill(sn("wk-c"))].join("")+'</div>';
- return `<article class="wk" id="cat-${slug}"><header class="wk-h"><span class="wk-no">${c[0]} / 03</span><div class="wk-ttl"><h3 class="wk-title"><span>${c[1]}.</span></h3><div class="fl chip wk-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">${ICO[c[3]]}</svg></div></div><p>${c[2]}</p><span class="wk-count">${String(it.length).padStart(2,"0")} project${it.length===1?"":"s"}</span></header><div class="wk-body"><div class="wk-featw">${feat?vc(feat[0],feat[1],"wk-feat"):sn("wk-feat")}<span class="wk-tag">Top video</span></div><div class="wk-lane" aria-label="More ${c[1]} videos"><div class="wk-track" style="animation-direction:${n%2?"reverse":"normal"}">${set}${set}</div></div></div></article>`}).join("");
-document.querySelectorAll(".wk [data-i]").forEach(b=>b.onclick=()=>open(+b.dataset.i,b));
+/* Selected work: tilted 3D orbit of every video, filterable by category */
+(()=>{const host=$("cats"),still=matchMedia("(prefers-reduced-motion:reduce)").matches,dur=p=>p.d.split(" · ")[1];
+ const tabs=[["All","Every edit in one reel.",P.map((p,i)=>i)],...CATS.map(c=>[c[1],c[2],P.map((p,i)=>[p,i]).filter(([p])=>p.cat===c[1]&&!p.soon).map(([,i])=>i)])];
+ host.innerHTML='<div class="orb"><div class="orb-head"><div class="orb-tabs" role="tablist" aria-label="Filter by category">'+tabs.map((t,k)=>'<button role="tab" aria-selected="'+(k===0)+'" data-k="'+k+'">'+t[0]+'<i>'+String(t[2].length).padStart(2,"0")+'</i></button>').join("")+'</div><p class="orb-desc" id="orbDesc"></p></div>'
+  +'<div class="orb-stage" id="orbStage" aria-label="Video orbit. Drag to spin, click a video to play."><div class="orb-tilt"><div class="orb-ring" id="orbRing"></div></div></div>'
+  +'<div class="orb-now"><button class="orb-arr" id="orbPrev" aria-label="Previous video">←</button><div class="orb-cap" aria-live="polite"><span id="orbNo">01 / 29</span><b id="orbT"></b><span id="orbM"></span></div><button class="orb-arr" id="orbNext" aria-label="Next video">→</button></div></div>';
+ const stage=$("orbStage"),ring=$("orbRing");let ids=[],cards=[],step=0,off=0,vel=0,tgt=null,drag=false,moved=false,lx=0,hov=false,vis=false,front=-1,idle=0,last=performance.now();
+ function build(k){ids=tabs[k][2];$("orbDesc").textContent=tabs[k][1];
+  ring.innerHTML=ids.map(i=>{const p=P[i];return '<button class="orb-c" data-i="'+i+'" aria-label="Play '+p.t+'"><span class="orb-f"><img src="'+(p.vp||p.poster)+'" alt="" loading="lazy" draggable="false"><span class="vt"><b>'+p.t+'</b><i>'+dur(p)+'</i></span></span><span class="orb-b" aria-hidden="true"><img src="'+(p.vp||p.poster)+'" alt="" loading="lazy" draggable="false"></span></button>'}).join("");
+  cards=[...ring.children];cards.forEach(c=>c.onclick=()=>{if(!moved)open(+c.dataset.i,c)});front=-1;off=Math.round(off/360)*360;size();stage.classList.remove("swap");void stage.offsetWidth;stage.classList.add("swap")}
+ function size(){const W=stage.clientWidth,n=Math.max(ids.length,6),sm=W<700,w0=sm?W*.26:Math.min(W*.11,160),R=Math.min(sm?W*.85:Math.min(W*.4,600),Math.max(n*w0*1.18/(2*Math.PI),W*(sm?.3:.27))),w=Math.min(w0,2*Math.PI*R/n*.84);step=360/n;
+  /* fit the stage to the ring's projected height so there is no dead space above or below */
+  const P=Math.max(W*1.15,900),tx=(sm?7:9)*Math.PI/180,tz=(sm?5:7)*Math.PI/180,hh=w*2/3,lift=R*Math.sin(tx)+hh,
+   dn=Math.max(lift*P/(P-R*Math.cos(tx)),R*Math.sin(tz)+hh),up=Math.max(lift*P/(P+R*Math.cos(tx)),R*Math.sin(tz)+hh),cy=up+28;
+  stage.style.setProperty("--w",w.toFixed(1)+"px");stage.style.setProperty("--h",(w*4/3).toFixed(1)+"px");stage.style.setProperty("--cy",cy.toFixed(0)+"px");
+  stage.style.height=(cy+dn+28).toFixed(0)+"px";stage.style.perspective=P+"px";
+  cards.forEach((c,j)=>c.style.transform="translate(-50%,-50%) rotateY("+(j*step).toFixed(2)+"deg) translateZ("+R.toFixed(1)+"px)")}
+ function caption(){const n=ids.length,j=((Math.round(-off/step)%n)+n)%n;if(j===front)return;if(cards[front])cards[front].classList.remove("front");front=j;cards[j].classList.add("front");
+  const p=P[ids[j]];$("orbNo").textContent=String(j+1).padStart(2,"0")+" / "+String(n).padStart(2,"0");$("orbT").textContent=p.t;$("orbM").textContent=p.cat+" · "+p.d}
+ function tick(now){const dt=Math.min(now-last,50);last=now;
+  if(vis&&!$("lb").classList.contains("open")){
+   if(tgt!==null){off+=(tgt-off)*.12;if(Math.abs(tgt-off)<.05){off=tgt;tgt=null;idle=now}}
+   else if(!drag){off+=vel;vel*=.94;if(Math.abs(vel)<.01)vel=0;if(!still&&now-idle>2500)off-=dt*(hov?.0012:.006)}
+   ring.style.transform="rotateY("+off.toFixed(3)+"deg)";caption()}
+  requestAnimationFrame(tick)}
+ const go=d=>{tgt=(Math.round(-(tgt===null?off:tgt)/step)+d)*-step;vel=0};
+ $("orbPrev").onclick=()=>go(-1);$("orbNext").onclick=()=>go(1);
+ stage.addEventListener("pointerdown",e=>{drag=true;moved=false;lx=e.clientX;vel=0;tgt=null});
+ addEventListener("pointermove",e=>{if(!drag)return;const dx=e.clientX-lx;lx=e.clientX;if(Math.abs(dx)>2)moved=true;const d=dx*.22;off+=d;vel=d*.6});
+ addEventListener("pointerup",()=>{if(!drag)return;drag=false;idle=performance.now();setTimeout(()=>moved=false,0)});
+ stage.addEventListener("pointerenter",()=>hov=true);stage.addEventListener("pointerleave",()=>hov=false);
+ stage.addEventListener("keydown",e=>{if(e.key==="ArrowLeft"){go(-1);e.preventDefault()}if(e.key==="ArrowRight"){go(1);e.preventDefault()}});
+ host.querySelectorAll(".orb-tabs button").forEach(b=>b.onclick=()=>{host.querySelectorAll(".orb-tabs button").forEach(x=>x.setAttribute("aria-selected",x===b));build(+b.dataset.k)});
+ new IntersectionObserver(es=>{vis=es[0].isIntersecting;last=performance.now()},{rootMargin:"120px 0px"}).observe(stage);
+ addEventListener("resize",size);build(0);requestAnimationFrame(tick)})();
 /* full stop on headlines becomes the red "record" mark */
 document.querySelectorAll(".copy h1,.mo-word span,.wk-title span").forEach(el=>el.innerHTML=el.innerHTML.replace(/\.$/,'<i class="dot">.</i>'));
 /* timecode: total runtime of every project, scrubbed by scroll */
