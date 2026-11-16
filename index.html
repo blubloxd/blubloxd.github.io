@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Tengku Aliff – Video Editor</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Doto:wght@600;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Hanken+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
  --bg:#EEECE7;--ink:#141412;--muted:#6E6A62;--acc:#E0362C;--on:#fff;--card:#FAF9F6;--line:rgba(20,20,18,.16);
@@ -260,7 +260,7 @@ body.loading{overflow:hidden}
 .contact a{color:var(--ink);font-size:clamp(20px,3vw,30px);text-decoration-thickness:1px;text-underline-offset:.18em;transition:color .2s}.contact a:hover{color:var(--acc)}
 @media(max-width:700px){.about-grid,.about-cols{grid-template-columns:1fr}.facts{grid-template-columns:repeat(2,1fr)}}
 /* ===== About: Nothing OS-style widgets ===== */
-.nx{--dot:"Doto",var(--mf);--r:22px;background-image:radial-gradient(color-mix(in srgb,var(--ink) 9%,transparent) 1px,transparent 1.4px);background-size:14px 14px;background-position:7px 7px}
+.nx{--dot:"Instrument Serif",Georgia,serif;--r:22px;background-image:radial-gradient(color-mix(in srgb,var(--ink) 9%,transparent) 1px,transparent 1.4px);background-size:14px 14px;background-position:7px 7px}
 .nx .wrap{max-width:1100px;margin:0 auto}
 .nx-top{display:flex;justify-content:space-between;align-items:center;font:400 12px/1 var(--mf);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:18px}
 .nx-live{display:inline-flex;align-items:center;gap:8px;color:var(--ink)}.nx-live i{width:8px;height:8px;border-radius:50%;background:var(--acc);animation:nx-blink 1.6s steps(1) infinite}
@@ -661,13 +661,16 @@ body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],bo
 .hb{position:absolute;inset:0;z-index:-1;pointer-events:none;opacity:calc(1 - var(--out,0))}
 .hb-dots{position:absolute;inset:0;width:100%;height:100%}
 
+/* About page font: Instrument Serif italic */
+.nx{--dot:"Instrument Serif",Georgia,serif}.nx-dot{font-weight:400;font-style:italic;letter-spacing:-.02em;font-size:clamp(60px,7vw,92px)}.nx-name{font-weight:400;font-style:italic;font-size:32px;letter-spacing:0}.nx-ic{font-weight:400;font-style:italic;font-size:26px}
 /* light / dark switch */
-.mode{position:fixed;left:50%;bottom:calc(14px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:9;display:inline-flex;align-items:center;gap:8px;padding:8px 14px 8px 11px;border-radius:999px;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 88%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);color:var(--ink);font:500 12px/1 var(--mf);letter-spacing:.06em;text-transform:uppercase;cursor:pointer;box-shadow:0 10px 30px rgba(0,0,0,.25);transition:background .3s,color .3s,transform .2s}
-.mode:hover{transform:translateX(-50%) translateY(-2px)}
+.mode{pointer-events:auto;display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--ink);cursor:pointer;transition:background .25s,border-color .25s,transform .25s cubic-bezier(.2,.7,.2,1)}
+.mode:hover{border-color:var(--acc);transform:rotate(-20deg)}
+.mode span{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
 .mode svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 .mode .i-moon{display:none;fill:currentColor;stroke:none}
 body[data-theme=paper] .mode .i-sun{display:none}body[data-theme=paper] .mode .i-moon{display:block}
-@media(max-width:700px){.mode{left:auto;right:14px;transform:none;padding:9px}.mode:hover{transform:none}.mode span{display:none}}
+@media(max-width:700px){.mode{width:30px;height:30px}}
 /* ===== phone fixes ===== */
 html,body{overflow-x:clip}
 @media(max-width:899px){
@@ -696,7 +699,7 @@ html,body{overflow-x:clip}
 <header>
     <div><div class="name">Portfolio</div><div class="avail">Discover my Creativity</div></div>
     <div class="tc" aria-hidden="true"><b id="tc">00:00:00:00</b><span class="tc-r"><i id="tcP"></i></span></div>
-    <nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a></nav>
+    <nav><a href="#work">Work</a><a href="#about">About</a><a href="#contact">Contact</a><button class="mode" id="modeBtn" type="button" aria-label="Switch to light mode"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span>Light</span></button></nav>
   </header>
 <section class="hero">
   <div class="hb" aria-hidden="true"><canvas class="hb-dots"></canvas>
@@ -732,7 +735,6 @@ html,body{overflow-x:clip}
   <a href="mailto:aliffnaz2@gmail.com">aliffnaz2@gmail.com</a>
 </div></section>
 
-<button class="mode" id="modeBtn" type="button" aria-label="Switch to light mode"><svg class="i-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.2M12 19.3v2.2M2.5 12h2.2M19.3 12h2.2M5.3 5.3l1.6 1.6M17.1 17.1l1.6 1.6M5.3 18.7l1.6-1.6M17.1 6.9l1.6-1.6"/></svg><svg class="i-moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg><span>Light</span></button>
 
 <div class="lb" id="lb" role="dialog" aria-modal="true" aria-labelledby="lbt">
   <div class="box">
@@ -1019,7 +1021,7 @@ function retHover(el){const svg=el.querySelector("svg"),cr=el.querySelector(".cr
    else if(tgt!==null){off+=(tgt-off)*.075;if(Math.abs(tgt-off)<.05){off=tgt;tgt=null;idle=now}}
    else if(!drag){off+=vel;vel*=.94;if(Math.abs(vel)<.01)vel=0;if(!still&&now-idle>2500)off-=dt*(hov?.0006:.003)}
    ring.style.transform="rotateY("+off.toFixed(3)+"deg)";caption();
-   if(!still){const ft=now/1000;tiltEl.style.transform="translateY("+(Math.sin(ft*.648)*2).toFixed(2)+"px) rotateZ("+(-7+Math.sin(ft*.396)*1.28).toFixed(2)+"deg) rotateX("+(-9+Math.sin(ft*.504+1)*1.6).toFixed(2)+"deg)"}}
+   if(!still){const ft=now/1000;tiltEl.style.transform="translateY("+(Math.sin(ft*.648)*2).toFixed(2)+"px) rotateZ("+(-7+Math.sin(ft*.396)*1.28).toFixed(2)+"deg) rotateX("+(-9+Math.sin(ft*.504+1)*1.6).toFixed(2)+"deg)";window.__orb={off,rz:-7+Math.sin(ft*.396)*1.28,rx:-9+Math.sin(ft*.504+1)*1.6,ty:Math.sin(ft*.648)*2}}else window.__orb={off,rz:-7,rx:-9,ty:0}}
   requestAnimationFrame(tick)}
  const go=d=>{tgt=(Math.round(-(tgt===null?off:tgt)/step)+d)*-step;vel=0};
  $("orbPrev").onclick=()=>go(-1);$("orbNext").onclick=()=>go(1);
@@ -1069,18 +1071,23 @@ $("aboutImg").src=document.querySelector(".me").src;
   let s=7;const rnd=()=>(s=(s*16807)%2147483647)/2147483647;stars=Array.from({length:Math.round(W*H/9000)},()=>({x:rnd()*W,y:rnd()*H,r:rnd()<.12?1.3:.7,p:rnd()*6.3,v:.4+rnd()*.9}))};
  fit();addEventListener("resize",fit);new MutationObserver(fit).observe(document.body,{attributes:true,attributeFilter:["data-theme"]});
  new IntersectionObserver(e=>{vis=e[0].isIntersecting;if(vis)requestAnimationFrame(draw)}).observe(cv);
- const ORB=[{k:1.08,sp:.05,d:[0,2.4]},{k:1.42,sp:-.032,d:[1.1]},{k:1.85,sp:.02,d:[3.6,5.2],a:1}];
+ /* orbit layers turn with the ring: inner path locked to it, outer ones slower (depth); spinning faster leaves trails */
+ const ORB=[{k:1.08,f:1,d:[0,2.4,4.2]},{k:1.42,f:.6,d:[1.1,3.9]},{k:1.85,f:.35,d:[3.6,5.2],a:1}];let lastOff=null,spd=0;
  function draw(now){const t=(now||0)/1000,want=(bd.classList.contains("is-cat")||orb.classList.contains("leaving"))?0:1;alpha+=(want-alpha)*.06;
-  g.clearRect(0,0,W,H);if(alpha>.01){const pr=cv.getBoundingClientRect(),sr=st.getBoundingClientRect(),cx=sr.left-pr.left+sr.width/2,cy=sr.top-pr.top+sr.height*.5,R=Math.min(sr.width*.42,W*.36);
+  const o0=window.__orb||{off:0,rz:-7,rx:-9,ty:0},off=o0.off,dO=lastOff==null?0:off-lastOff;lastOff=off;spd+=(Math.min(Math.abs(dO),12)-spd)*.15;
+  g.clearRect(0,0,W,H);if(alpha>.01){const pr=cv.getBoundingClientRect(),sr=st.getBoundingClientRect(),cx=sr.left-pr.left+sr.width/2,cy=sr.top-pr.top+sr.height*.5+o0.ty,R=Math.min(sr.width*.42,W*.36),rad=off*Math.PI/180,boost=Math.min(spd/4,1);
    g.save();g.globalAlpha=alpha;
-   /* stars */
-   g.fillStyle=ink;stars.forEach(s=>{g.globalAlpha=alpha*(.22+.4*(.5+.5*Math.sin(t*s.v+s.p)));g.beginPath();g.arc(s.x,s.y,s.r,0,6.3);g.fill()});
-   /* core glow */
-   const gr=g.createRadialGradient(cx,cy,0,cx,cy,R*1.1);try{gr.addColorStop(0,ink);gr.addColorStop(1,"rgba(0,0,0,0)");g.globalAlpha=alpha*.07;g.fillStyle=gr;g.fillRect(cx-R*1.2,cy-R*1.2,R*2.4,R*2.4)}catch(e){}
-   /* orbit paths + travelling dots */
-   g.translate(cx,cy);g.rotate(-7*Math.PI/180);
-   ORB.forEach(o=>{const rx=R*o.k,ry=rx*.2;g.globalAlpha=alpha*.3;g.strokeStyle=ink;g.lineWidth=1;g.setLineDash(o.a?[2,6]:[]);g.beginPath();g.ellipse(0,0,rx,ry,0,0,6.3);g.stroke();g.setLineDash([]);
-    o.d.forEach((d,i)=>{const a=d+(red?0:t*o.sp),x=Math.cos(a)*rx,y=Math.sin(a)*ry,front=Math.sin(a)>0;g.globalAlpha=alpha*(front?.9:.45);g.fillStyle=(o.a&&i===0)?acc:ink;g.beginPath();g.arc(x,y,(o.a&&i===0)?3.6:2.4,0,6.3);g.fill()})});
+   /* stars drift sideways with the spin (nearer stars faster), stretched into short streaks when it spins fast */
+   g.fillStyle=ink;g.strokeStyle=ink;stars.forEach(s=>{const x=((s.x+off*1.6*s.v)%W+W)%W;g.globalAlpha=alpha*(.22+.4*(.5+.5*Math.sin(t*s.v+s.p)));
+    if(boost>.08){g.lineWidth=s.r*1.4;g.beginPath();g.moveTo(x,s.y);g.lineTo(x-Math.sign(dO||1)*dO*1.6*s.v*boost*4,s.y);g.stroke()}else{g.beginPath();g.arc(x,s.y,s.r,0,6.3);g.fill()}});
+   /* core glow, a touch brighter while spinning */
+   const gr=g.createRadialGradient(cx,cy,0,cx,cy,R*1.1);try{gr.addColorStop(0,ink);gr.addColorStop(1,"rgba(0,0,0,0)");g.globalAlpha=alpha*(.07+.05*boost);g.fillStyle=gr;g.fillRect(cx-R*1.2,cy-R*1.2,R*2.4,R*2.4)}catch(e){}
+   /* orbit paths + dots, tilted and bobbing with the ring */
+   g.translate(cx,cy);g.rotate(o0.rz*Math.PI/180);const flat=.2*Math.abs(o0.rx)/9;
+   ORB.forEach(o=>{const rx=R*o.k,ry=rx*flat;g.globalAlpha=alpha*(.3+.25*boost);g.strokeStyle=ink;g.lineWidth=1;if(o.a){g.setLineDash([2,6]);g.lineDashOffset=-off*o.f*3}g.beginPath();g.ellipse(0,0,rx,ry,0,0,6.3);g.stroke();g.setLineDash([]);
+    o.d.forEach((d,i)=>{const th=d+rad*o.f,a=Math.PI/2-th,red1=o.a&&i===0;g.fillStyle=red1?acc:ink;
+     const tl=Math.min(.9,Math.abs(dO)*Math.PI/180*o.f*6);if(tl>.02){for(let k=6;k>=1;k--){const ak=a+Math.sign(dO)*tl*k/6;g.globalAlpha=alpha*.5*(1-k/7)*(Math.sin(ak)>0?1:.5);g.beginPath();g.arc(Math.cos(ak)*rx,Math.sin(ak)*ry,(red1?3.6:2.4)*(1-k/9),0,6.3);g.fill()}}
+     const x=Math.cos(a)*rx,y=Math.sin(a)*ry,front=Math.sin(a)>0;g.globalAlpha=alpha*(front?.9:.45);g.beginPath();g.arc(x,y,red1?3.6:2.4,0,6.3);g.fill()})});
    g.restore()}
   if(vis&&!red||Math.abs(want-alpha)>.01)requestAnimationFrame(draw)}
  requestAnimationFrame(draw)})();
