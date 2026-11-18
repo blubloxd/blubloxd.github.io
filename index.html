@@ -672,7 +672,7 @@ body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],bo
 .nx-big{display:block;font:400 italic clamp(24px,2.4vw,32px)/1.05 var(--dot);color:var(--ink);letter-spacing:-.01em}.nx-big i{color:var(--acc);font-style:normal;padding:0 .1em}
 /* About: Malaysia dot map */
 .nx-loc{position:relative}
-.nx-map{position:absolute;right:18px;top:16px;width:62%;height:auto;overflow:visible}@media(max-width:700px){.nx-map{top:32px;width:60%}}
+.nx-map{position:absolute;right:14px;top:28px;width:70%;height:auto;overflow:visible}@media(max-width:900px){.nx-map{left:18px;right:18px;top:40px;width:calc(100% - 36px)}}
 .nx-map-dots circle{fill:var(--ink);opacity:.28;animation:nx-wave 3.6s ease-in-out infinite;animation-delay:calc(var(--c)*.09s)}
 @keyframes nx-wave{0%,100%{opacity:.22}12%{opacity:.75}30%{opacity:.22}}
 .nx-pin{fill:var(--acc)}
@@ -1273,7 +1273,7 @@ let IO=70,introT=null,off=0,drag=false,moved=false,lx=0,mx=0,my=0,inside=false,s
 const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
 /* sizes are measured once (and on resize), never inside the animation loop */
 let G=null,heroOn=true;
-function dims(){const W=stage.clientWidth,R=W*.46,w=Math.max(Math.min(W*.215,innerHeight*.36,340),112),h=w/1.2,step=w*1.05/R*(180/Math.PI);G={R,step,total:step*L.length};
+function dims(){const W=stage.clientWidth,R=W*.46,w=Math.max(Math.min(W*.185,innerHeight*.31,290),112),h=w/1.2,step=w*1.05/R*(180/Math.PI);G={R,step,total:step*L.length};
  stage.style.height=h*1.7+"px";stage.style.perspective=W*1.1+"px";
  stage.style.setProperty("--w",w+"px");stage.style.setProperty("--h",h+"px");
  ring.style.transform="translateZ("+R+"px)"}
