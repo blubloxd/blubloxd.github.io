@@ -1269,7 +1269,7 @@ let IO=70,introT=null,off=0,drag=false,moved=false,lx=0,mx=0,my=0,inside=false,s
 const reduce=matchMedia("(prefers-reduced-motion:reduce)").matches;
 /* sizes are measured once (and on resize), never inside the animation loop */
 let G=null,heroOn=true;
-function dims(){const W=stage.clientWidth,R=W*.46,w=Math.max(W*.215,112),h=w/1.2,step=w*1.05/R*(180/Math.PI);G={R,step,total:step*L.length};
+function dims(){const W=stage.clientWidth,R=W*.46,w=Math.max(Math.min(W*.215,innerHeight*.36,340),112),h=w/1.2,step=w*1.05/R*(180/Math.PI);G={R,step,total:step*L.length};
  stage.style.height=h*1.7+"px";stage.style.perspective=W*1.1+"px";
  stage.style.setProperty("--w",w+"px");stage.style.setProperty("--h",h+"px");
  ring.style.transform="translateZ("+R+"px)"}
