@@ -743,6 +743,8 @@ body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],bo
 /* page 3 -> 4 motion */
 .contact::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--acc),transparent);box-shadow:0 0 18px var(--acc);transform:scaleX(var(--cp,1));opacity:calc(1 - var(--cp,1)*.6);z-index:2}
 .ct h2 .w{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.08em;margin-bottom:-.08em}.ct h2 .w>span{display:inline-block;will-change:transform}
+/* let the orbit ring spill past the content column instead of being cut off */
+.sw.pinmode .sw-pin{overflow-x:visible!important;overflow-y:clip!important}
 /* light / dark switch */
 .mode{pointer-events:auto;display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--ink);cursor:pointer;transition:background .25s,border-color .25s,transform .25s cubic-bezier(.2,.7,.2,1)}
 .mode:hover{border-color:var(--acc);transform:rotate(-20deg)}
