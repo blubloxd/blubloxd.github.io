@@ -792,6 +792,17 @@ body[data-theme=paper] [data-t=paper],body[data-theme=cobalt] [data-t=cobalt],bo
 .ct-qr-code svg{width:100%;height:100%;display:block}
 .ct-qr .ct-lbl{margin-bottom:6px}.ct-qr p{margin:0 0 8px;font-size:13px;line-height:1.4;color:var(--muted)}
 .contact .ct-vcf{font:400 12px/1 var(--mf);color:var(--ink);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:2px}.contact .ct-vcf:hover{color:var(--acc);border-color:var(--acc)}
+/* first-visit hint for the light/dark button */
+.mode{position:relative}
+.mode.hint::before{content:"";position:absolute;inset:-5px;border-radius:50%;border:1.5px solid var(--acc);animation:mode-ping 1.6s ease-out infinite;pointer-events:none}
+@keyframes mode-ping{0%{transform:scale(.85);opacity:.9}100%{transform:scale(1.6);opacity:0}}
+.mode-tip{position:fixed;z-index:60;display:flex;align-items:center;gap:10px;padding:10px 12px 10px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line);box-shadow:0 14px 34px rgba(0,0,0,.35);font:400 13px/1.3 var(--bf,inherit);color:var(--ink);opacity:0;transform:translateY(-6px);transition:opacity .35s,transform .35s cubic-bezier(.2,.7,.2,1);pointer-events:none;max-width:260px}
+.mode-tip.on{opacity:1;transform:none;pointer-events:auto}
+.mode-tip::before{content:"";position:absolute;top:-6px;right:var(--ax,18px);width:10px;height:10px;background:var(--card);border-left:1px solid var(--line);border-top:1px solid var(--line);transform:rotate(45deg)}
+.mode-tip b{font-weight:600}
+.mode-tip button{flex:0 0 auto;border:0;background:none;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;padding:2px 4px}
+.mode-tip button:hover{color:var(--ink)}
+@media(prefers-reduced-motion:reduce){.mode.hint::before{animation:none;opacity:.8}}
 /* light / dark switch */
 .mode{pointer-events:auto;display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border-radius:50%;border:1px solid var(--line);background:color-mix(in srgb,var(--card) 70%,transparent);color:var(--ink);cursor:pointer;transition:background .25s,border-color .25s,transform .25s cubic-bezier(.2,.7,.2,1)}
 .mode:hover{border-color:var(--acc);transform:rotate(-20deg)}
@@ -1483,5 +1494,13 @@ addEventListener("scroll",()=>{if(!sk){sk=true;requestAnimationFrame(cont)}},{pa
 document.querySelectorAll(".nx-chip").forEach(b=>b.addEventListener("click",()=>{const i=P.findIndex(p=>p.t===b.dataset.v);if(i>=0)open(i,b)}));
 document.querySelectorAll(".xp-tog").forEach(t=>t.addEventListener("click",()=>{const pn=t.closest(".xp-body").querySelector(".xp-panel"),o=!pn.classList.contains("open");pn.classList.toggle("open",o);t.setAttribute("aria-expanded",o);t.firstChild.textContent=o?"Hide projects":"Show projects"}));
 document.querySelectorAll(".xp-more").forEach(m=>m.addEventListener("click",()=>{const box=m.parentNode,n=box.querySelector(".xp-n");m.dataset.more.split("|").forEach(v=>{const p=P.find(q=>q.t===v);if(!p)return;const b=document.createElement("button");b.type="button";b.className="nx-chip xp-th";b.title=v;b.setAttribute("aria-label","Play "+v);b.innerHTML='<img src="'+p.poster+'" alt="">';b.onclick=()=>open(P.indexOf(p),b);box.insertBefore(b,n)});m.remove()}));</script>
+<script>/* first-time visitors: point out the light/dark switch once */
+(()=>{const btn=document.getElementById("modeBtn");if(!btn)return;let seen=false;try{seen=localStorage.getItem("modeHintSeen")==="1"}catch(e){}if(seen)return;
+ const tip=document.createElement("div");tip.className="mode-tip";tip.setAttribute("role","status");document.body.append(tip);
+ const label=()=>{const dark=document.body.dataset.theme!=="paper";tip.innerHTML='<span>Prefer it '+(dark?'<b>light</b>':'<b>dark</b>')+'? Tap '+(dark?'☀':'☾')+' to switch.</span><button type="button" aria-label="Dismiss">×</button>';tip.querySelector("button").onclick=done};
+ const place=()=>{const r=btn.getBoundingClientRect(),w=tip.offsetWidth;let left=Math.min(innerWidth-w-12,r.right-w+8);left=Math.max(12,left);tip.style.left=left+"px";tip.style.top=(r.bottom+12)+"px";tip.style.setProperty("--ax",Math.max(10,(left+w)-(r.left+r.width/2)-5)+"px")};
+ let t1,t2;const done=()=>{clearTimeout(t1);clearTimeout(t2);tip.classList.remove("on");btn.classList.remove("hint");try{localStorage.setItem("modeHintSeen","1")}catch(e){}setTimeout(()=>tip.remove(),400);removeEventListener("resize",place)};
+ btn.addEventListener("click",done,{once:true});addEventListener("resize",place);
+ t1=setTimeout(()=>{label();place();btn.classList.add("hint");tip.classList.add("on");t2=setTimeout(()=>{tip.classList.remove("on");setTimeout(()=>btn.classList.remove("hint"),4000)},7000)},2500)})();</script>
 </body>
 </html>
